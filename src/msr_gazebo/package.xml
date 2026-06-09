@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>msr_gazebo</name>
+  <version>0.0.1</version>
+  <description>Gazebo Sim worlds and bridge config for Mobile Sorting Robot</description>
+  <maintainer email="jessiescrew98@gmail.com">Jesse</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>ros_gz_image</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>tf2_msgs</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

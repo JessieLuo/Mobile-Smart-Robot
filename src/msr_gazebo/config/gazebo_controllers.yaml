@@ -1,0 +1,3 @@
+# Day 1 placeholder.
+# Real ros2_control / mecanum controller is intentionally not used yet.
+# Gazebo movement is handled by gz-sim-diff-drive-system in sorting_room.sdf.

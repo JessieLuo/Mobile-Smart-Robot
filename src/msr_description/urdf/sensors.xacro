@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="msr_sensors">
+
+    <!-- YDLIDAR X3 Pro approximate visual body -->
+    <link name="lidar_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.045" length="0.035"/>
+        </geometry>
+        <material name="mat_lidar">
+          <color rgba="0.01 0.01 0.01 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="base_link_to_lidar_link" type="fixed">
+      <parent link="base_link"/>
+      <child link="lidar_link"/>
+      <origin xyz="0 0 0.095" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Front RGB camera -->
+    <link name="camera_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.04 0.08 0.035"/>
+        </geometry>
+        <material name="mat_camera">
+          <color rgba="0.05 0.05 0.8 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="base_link_to_camera_link" type="fixed">
+      <parent link="base_link"/>
+      <child link="camera_link"/>
+      <origin xyz="0.18 0 0.06" rpy="0 0 0"/>
+    </joint>
+
+    <link name="camera_optical_link"/>
+
+    <joint name="camera_link_to_camera_optical_link" type="fixed">
+      <parent link="camera_link"/>
+      <child link="camera_optical_link"/>
+      <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    </joint>
+
+    <!-- IMU frame -->
+    <link name="imu_link"/>
+
+    <joint name="base_link_to_imu_link" type="fixed">
+      <parent link="base_link"/>
+      <child link="imu_link"/>
+      <origin xyz="0 0 0.03" rpy="0 0 0"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

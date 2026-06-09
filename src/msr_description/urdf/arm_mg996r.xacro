@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Day 1: only a static placeholder so RViz/Gazebo can show future arm location.
+       Real servo chain will be added after base simulation is stable. -->
+  <xacro:macro name="msr_simple_arm">
+
+    <link name="arm_base_link">
+      <visual>
+        <geometry>
+          <box size="0.08 0.08 0.04"/>
+        </geometry>
+        <material name="mat_arm_base">
+          <color rgba="0.6 0.6 0.6 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="base_link_to_arm_base_link" type="fixed">
+      <parent link="base_link"/>
+      <child link="arm_base_link"/>
+      <origin xyz="0.02 0 0.085" rpy="0 0 0"/>
+    </joint>
+
+    <link name="arm_preview_link">
+      <visual>
+        <origin xyz="0 0 0.08" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.035 0.035 0.16"/>
+        </geometry>
+        <material name="mat_arm_preview">
+          <color rgba="0.75 0.75 0.75 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="arm_base_to_arm_preview_link" type="fixed">
+      <parent link="arm_base_link"/>
+      <child link="arm_preview_link"/>
+      <origin xyz="0 0 0.02" rpy="0 0 0"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

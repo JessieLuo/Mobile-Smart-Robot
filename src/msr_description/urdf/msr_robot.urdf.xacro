@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot name="mobile_sorting_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="use_sim" default="true"/>
+
+  <xacro:include filename="$(find msr_description)/urdf/chassis.xacro"/>
+  <xacro:include filename="$(find msr_description)/urdf/mecanum_wheel.xacro"/>
+  <xacro:include filename="$(find msr_description)/urdf/sensors.xacro"/>
+  <xacro:include filename="$(find msr_description)/urdf/arm_mg996r.xacro"/>
+
+  <!-- base footprint -->
+  <link name="base_footprint"/>
+
+  <joint name="base_footprint_to_base_link" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.08" rpy="0 0 0"/>
+  </joint>
+
+  <xacro:msr_chassis/>
+
+  <!-- 80mm wheels, visual mecanum-like, physics handled in Gazebo SDF by DiffDrive for Day 1 -->
+  <xacro:msr_mecanum_wheel
+    name="front_left_wheel"
+    parent="base_link"
+    xyz="0.11 0.14 -0.04"
+    rpy="1.57079632679 0 0"/>
+
+  <xacro:msr_mecanum_wheel
+    name="rear_left_wheel"
+    parent="base_link"
+    xyz="-0.11 0.14 -0.04"
+    rpy="1.57079632679 0 0"/>
+
+  <xacro:msr_mecanum_wheel
+    name="front_right_wheel"
+    parent="base_link"
+    xyz="0.11 -0.14 -0.04"
+    rpy="1.57079632679 0 0"/>
+
+  <xacro:msr_mecanum_wheel
+    name="rear_right_wheel"
+    parent="base_link"
+    xyz="-0.11 -0.14 -0.04"
+    rpy="1.57079632679 0 0"/>
+
+  <xacro:msr_sensors/>
+  <xacro:msr_simple_arm/>
+
+</robot>

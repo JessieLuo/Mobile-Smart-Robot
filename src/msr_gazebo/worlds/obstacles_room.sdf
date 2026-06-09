@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<sdf version="1.10">
+  <include>
+    <uri>file://sorting_room.sdf</uri>
+  </include>
+</sdf>

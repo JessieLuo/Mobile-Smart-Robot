@@ -1,0 +1,7 @@
+mobile_sorting_robot:
+  use_sim_time: true
+  base_frame: base_link
+  odom_frame: odom
+  lidar_frame: lidar_link
+  camera_frame: camera_link
+  imu_frame: imu_link
