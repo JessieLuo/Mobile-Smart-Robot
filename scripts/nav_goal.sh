@@ -1,0 +1,2 @@
+ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose \
+'{pose: {header: {frame_id: "odom"}, pose: {position: {x: 1.0, y: 0.0, z: 0.0}, orientation: {w: 1.0}}}}'

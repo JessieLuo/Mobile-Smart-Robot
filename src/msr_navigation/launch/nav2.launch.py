@@ -1,11 +1,9 @@
 import os
 
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
-from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
 from launch.actions import DeclareLaunchArgument
-
+from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 
 
@@ -13,36 +11,119 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration("use_sim_time")
     params_file = LaunchConfiguration("params_file")
 
-    nav2_bringup_dir = get_package_share_directory("nav2_bringup")
     msr_navigation_dir = get_package_share_directory("msr_navigation")
-
-    default_params = os.path.join(
+    default_params_file = os.path.join(
         msr_navigation_dir,
         "config",
-        "nav2_params.yaml",
+        "nav2_params.yaml"
     )
 
-    nav2_launch = os.path.join(
-        nav2_bringup_dir,
-        "launch",
-        "navigation_launch.py",
-    )
+    remappings = [
+        ("/tf", "tf"),
+        ("/tf_static", "tf_static"),
+    ]
+
+    lifecycle_nodes = [
+        "controller_server",
+        "smoother_server",
+        "planner_server",
+        "behavior_server",
+        "bt_navigator",
+        "waypoint_follower",
+        "velocity_smoother",
+    ]
+
+    common_params = [
+        params_file,
+        {"use_sim_time": use_sim_time},
+    ]
 
     return LaunchDescription([
         DeclareLaunchArgument(
             "use_sim_time",
             default_value="true",
         ),
+
         DeclareLaunchArgument(
             "params_file",
-            default_value=default_params,
+            default_value=default_params_file,
         ),
 
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(nav2_launch),
-            launch_arguments={
-                "use_sim_time": use_sim_time,
-                "params_file": params_file,
-            }.items(),
+        Node(
+            package="nav2_controller",
+            executable="controller_server",
+            name="controller_server",
+            output="screen",
+            parameters=common_params,
+            remappings=remappings,
+        ),
+
+        Node(
+            package="nav2_smoother",
+            executable="smoother_server",
+            name="smoother_server",
+            output="screen",
+            parameters=common_params,
+            remappings=remappings,
+        ),
+
+        Node(
+            package="nav2_planner",
+            executable="planner_server",
+            name="planner_server",
+            output="screen",
+            parameters=common_params,
+            remappings=remappings,
+        ),
+
+        Node(
+            package="nav2_behaviors",
+            executable="behavior_server",
+            name="behavior_server",
+            output="screen",
+            parameters=common_params,
+            remappings=remappings,
+        ),
+
+        Node(
+            package="nav2_bt_navigator",
+            executable="bt_navigator",
+            name="bt_navigator",
+            output="screen",
+            parameters=common_params,
+            remappings=remappings,
+        ),
+
+        Node(
+            package="nav2_waypoint_follower",
+            executable="waypoint_follower",
+            name="waypoint_follower",
+            output="screen",
+            parameters=common_params,
+            remappings=remappings,
+        ),
+
+        Node(
+            package="nav2_velocity_smoother",
+            executable="velocity_smoother",
+            name="velocity_smoother",
+            output="screen",
+            parameters=common_params,
+            remappings=remappings,
+        ),
+
+        Node(
+            package="nav2_lifecycle_manager",
+            executable="lifecycle_manager",
+            name="lifecycle_manager_navigation",
+            output="screen",
+            parameters=[
+                params_file,
+                {
+                    "use_sim_time": use_sim_time,
+                    "autostart": True,
+                    "node_names": lifecycle_nodes,
+                },
+            ],
         ),
     ])
