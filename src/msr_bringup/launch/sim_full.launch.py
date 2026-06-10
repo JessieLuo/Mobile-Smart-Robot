@@ -26,13 +26,15 @@ def generate_launch_description():
         "robot_view.rviz",
     )
 
-    robot_description = {
-        "robot_description": Command([
+    from launch_ros.parameter_descriptions import ParameterValue
+    robot_description = ParameterValue(
+        Command([
             "xacro ",
             xacro_file,
-            " use_sim:=true",
-        ])
-    }
+            " use_sim:=true"
+        ]),
+        value_type=str,
+    )
 
     robot_state_publisher = Node(
         package="robot_state_publisher",
@@ -40,9 +42,11 @@ def generate_launch_description():
         name="robot_state_publisher",
         output="screen",
         parameters=[
-            robot_description,
-            {"use_sim_time": True},
-        ],
+            {
+                "robot_description": robot_description,
+                "use_sim_time": True,
+            }
+        ]
     )
 
     # Gazebo LaserScan frame_id is:
