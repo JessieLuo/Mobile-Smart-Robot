@@ -1,0 +1,5 @@
+string target_label
+---
+bool success
+ObjectDetection detection
+string message

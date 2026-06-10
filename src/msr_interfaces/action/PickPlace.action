@@ -1,0 +1,7 @@
+string target_label
+string bin_label
+---
+bool success
+string message
+---
+ArmStatus status

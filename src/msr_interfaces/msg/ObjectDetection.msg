@@ -1,0 +1,16 @@
+std_msgs/Header header
+
+string label
+float32 confidence
+
+float32 center_x
+float32 center_y
+float32 width
+float32 height
+float32 area
+
+float32 world_x
+float32 world_y
+float32 world_z
+
+string source

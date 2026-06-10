@@ -1,0 +1,6 @@
+string raw_text
+bool use_llm
+---
+bool success
+TaskCommand command
+string message

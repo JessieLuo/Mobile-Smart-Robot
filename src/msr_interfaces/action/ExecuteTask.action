@@ -1,0 +1,6 @@
+TaskCommand command
+---
+bool success
+string message
+---
+TaskState state
