@@ -36,11 +36,10 @@
       <xacro:cylinder_inertia mass="0.25" radius="0.04" length="0.035"/>
     </link>
 
-    <joint name="${name}_joint" type="continuous">
+    <joint name="${name}_joint" type="fixed">
       <parent link="${parent}"/>
       <child link="${name}"/>
       <origin xyz="${xyz}" rpy="${rpy}"/>
-      <axis xyz="0 0 1"/>
     </joint>
   </xacro:macro>
 

@@ -8,14 +8,7 @@
   <xacro:include filename="$(find msr_description)/urdf/sensors.xacro"/>
   <xacro:include filename="$(find msr_description)/urdf/arm_mg996r.xacro"/>
 
-  <!-- base footprint -->
-  <link name="base_footprint"/>
-
-  <joint name="base_footprint_to_base_link" type="fixed">
-    <parent link="base_footprint"/>
-    <child link="base_link"/>
-    <origin xyz="0 0 0.08" rpy="0 0 0"/>
-  </joint>
+  <!-- base_link is now the root link; base_footprint is omitted for correct TF hierarchy -->
 
   <xacro:msr_chassis/>
 
