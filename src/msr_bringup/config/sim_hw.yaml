@@ -1,7 +1,31 @@
-mobile_sorting_robot:
-  use_sim_time: true
-  base_frame: base_link
-  odom_frame: odom
-  lidar_frame: lidar_link
-  camera_frame: camera_link
-  imu_frame: imu_link
+msr_sim_hw:
+  ros__parameters:
+    use_sim_time: true
+
+    # Base
+    cmd_vel_topic: "/cmd_vel"
+    odom_topic: "/odom"
+    tf_topic: "/tf"
+
+    # Sensors
+    scan_topic: "/scan"
+    imu_topic: "/imu"
+    left_camera_topic: "/left_camera/image_raw"
+    right_camera_topic: "/right_camera/image_raw"
+    camera_info_topic: "/camera_info"
+
+    # Arm low-level command topics
+    arm_joint1_cmd_topic: "/arm/joint1/cmd_pos"
+    arm_joint2_cmd_topic: "/arm/joint2/cmd_pos"
+    arm_joint3_cmd_topic: "/arm/joint3/cmd_pos"
+    arm_joint4_cmd_topic: "/arm/joint4/cmd_pos"
+    arm_joint5_cmd_topic: "/arm/joint5/cmd_pos"
+    arm_joint6_cmd_topic: "/arm/joint6/cmd_pos"
+
+    # Gazebo raw topics, only for debugging
+    gz_cmd_vel_topic: "/model/mobile_sorting_robot/cmd_vel"
+    gz_odom_topic: "/model/mobile_sorting_robot/odometry"
+    gz_scan_topic: "/model/mobile_sorting_robot/scan"
+    gz_imu_topic: "/model/mobile_sorting_robot/imu"
+    gz_left_camera_topic: "/model/mobile_sorting_robot/left_camera"
+    gz_right_camera_topic: "/model/mobile_sorting_robot/right_camera"
