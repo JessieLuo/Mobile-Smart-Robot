@@ -3,15 +3,15 @@
 
   <xacro:macro name="msr_sensors">
 
-    <!-- YDLIDAR X3 Pro approximate visual body -->
+    <!-- LiDAR frame: keep close to the current Gazebo SDF pose. -->
     <link name="lidar_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <cylinder radius="0.045" length="0.035"/>
+          <cylinder radius="0.058" length="0.060"/>
         </geometry>
-        <material name="mat_lidar">
-          <color rgba="0.01 0.01 0.01 1.0"/>
+        <material name="mat_lidar_black">
+          <color rgba="0.02 0.02 0.02 1.0"/>
         </material>
       </visual>
     </link>
@@ -19,43 +19,70 @@
     <joint name="base_link_to_lidar_link" type="fixed">
       <parent link="base_link"/>
       <child link="lidar_link"/>
-      <origin xyz="0 0 0.095" rpy="0 0 0"/>
+      <origin xyz="0.145 0 0.170" rpy="0 0 0"/>
     </joint>
 
-    <!-- Front RGB camera -->
-    <link name="camera_link">
+    <!-- Left RGB camera frame. -->
+    <link name="left_rgb_camera_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <box size="0.04 0.08 0.035"/>
+          <box size="0.060 0.045 0.036"/>
         </geometry>
-        <material name="mat_camera">
-          <color rgba="0.05 0.05 0.8 1.0"/>
+        <material name="mat_left_camera">
+          <color rgba="0.05 0.20 0.95 1.0"/>
         </material>
       </visual>
     </link>
 
-    <joint name="base_link_to_camera_link" type="fixed">
+    <joint name="base_link_to_left_rgb_camera_link" type="fixed">
       <parent link="base_link"/>
-      <child link="camera_link"/>
-      <origin xyz="0.18 0 0.06" rpy="0 0 0"/>
+      <child link="left_rgb_camera_link"/>
+      <origin xyz="0.115 0.060 0.285" rpy="0 0.18 0.25"/>
     </joint>
 
-    <link name="camera_optical_link"/>
+    <link name="left_rgb_camera_optical_link"/>
 
-    <joint name="camera_link_to_camera_optical_link" type="fixed">
-      <parent link="camera_link"/>
-      <child link="camera_optical_link"/>
+    <joint name="left_rgb_camera_to_optical" type="fixed">
+      <parent link="left_rgb_camera_link"/>
+      <child link="left_rgb_camera_optical_link"/>
       <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
     </joint>
 
-    <!-- IMU frame -->
+    <!-- Right RGB camera frame. -->
+    <link name="right_rgb_camera_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.060 0.045 0.036"/>
+        </geometry>
+        <material name="mat_right_camera">
+          <color rgba="0.20 0.85 1.00 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="base_link_to_right_rgb_camera_link" type="fixed">
+      <parent link="base_link"/>
+      <child link="right_rgb_camera_link"/>
+      <origin xyz="0.115 -0.060 0.285" rpy="0 0.18 -0.25"/>
+    </joint>
+
+    <link name="right_rgb_camera_optical_link"/>
+
+    <joint name="right_rgb_camera_to_optical" type="fixed">
+      <parent link="right_rgb_camera_link"/>
+      <child link="right_rgb_camera_optical_link"/>
+      <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    </joint>
+
+    <!-- IMU frame. -->
     <link name="imu_link"/>
 
     <joint name="base_link_to_imu_link" type="fixed">
       <parent link="base_link"/>
       <child link="imu_link"/>
-      <origin xyz="0 0 0.03" rpy="0 0 0"/>
+      <origin xyz="0.045 0 0.068" rpy="0 0 0"/>
     </joint>
 
   </xacro:macro>
