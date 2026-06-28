@@ -1,43 +1,51 @@
 import os
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
-
-from launch_ros.actions import Node
-
 from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
+
     use_sim_time = LaunchConfiguration("use_sim_time")
-    params_file = LaunchConfiguration("params_file")
+    slam_params_file = LaunchConfiguration("slam_params_file")
 
     msr_navigation_dir = get_package_share_directory("msr_navigation")
-    default_params = os.path.join(
+
+    default_sim_params = os.path.join(
         msr_navigation_dir,
         "config",
         "mapper_params_online_async.yaml",
     )
 
+    slam_toolbox_dir = get_package_share_directory("slam_toolbox")
+
     return LaunchDescription([
+
         DeclareLaunchArgument(
             "use_sim_time",
             default_value="true",
         ),
+
         DeclareLaunchArgument(
-            "params_file",
-            default_value=default_params,
+            "slam_params_file",
+            default_value=default_sim_params,
         ),
 
-        Node(
-            package="slam_toolbox",
-            executable="async_slam_toolbox_node",
-            name="slam_toolbox",
-            output="screen",
-            parameters=[
-                params_file,
-                {"use_sim_time": use_sim_time},
-            ],
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(
+                    slam_toolbox_dir,
+                    "launch",
+                    "online_async_launch.py",
+                )
+            ),
+            launch_arguments={
+                "slam_params_file": slam_params_file,
+                "use_sim_time": use_sim_time,
+            }.items(),
         ),
+
     ])
