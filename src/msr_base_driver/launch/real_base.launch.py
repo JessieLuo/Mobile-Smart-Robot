@@ -10,7 +10,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         Node(
-            package='nav_base',
+            package='msr_control',
             executable='safety_filter',
             name='safety_filter',
             output='screen',

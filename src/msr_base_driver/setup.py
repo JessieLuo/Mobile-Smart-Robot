@@ -46,7 +46,6 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'safety_filter = nav_base.safety_filter:main',
             'c30d_base_driver = nav_base.c30d_base_driver:main',
         ],
     },

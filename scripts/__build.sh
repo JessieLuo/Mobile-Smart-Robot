@@ -5,7 +5,8 @@ cd "$(dirname "$0")/.."
 
 source /opt/ros/jazzy/setup.bash
 
-colcon build --symlink-install
+# colcon build --symlink-install
+colcon build --packages-skip msr_interfaces --symlink-install
 
 echo ""
 echo "Build complete."

@@ -15,7 +15,6 @@
   <depend>nav2_msgs</depend>
   <depend>std_msgs</depend>
   <depend>tf_transformations</depend>
-  <depend>msr_interfaces</depend>
 
   <exec_depend>nav2_bringup</exec_depend>
   <exec_depend>slam_toolbox</exec_depend>

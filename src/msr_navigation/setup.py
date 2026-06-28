@@ -24,7 +24,7 @@ setup(
     tests_require=["pytest"],
     entry_points={
         "console_scripts": [
-            "semantic_nav_server = nav.semantic_nav_server:main",
+            # "semantic_nav_server = nav.semantic_nav_server:main",
             "nav2_goal_client = nav.nav2_goal_client:main",
         ],
     },

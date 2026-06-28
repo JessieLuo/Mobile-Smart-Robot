@@ -8,7 +8,7 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-    nav_base_dir = get_package_share_directory('nav_base')
+    nav_base_dir = get_package_share_directory('msr_navigation')
 
     real_base_config = os.path.join(
         nav_base_dir,
